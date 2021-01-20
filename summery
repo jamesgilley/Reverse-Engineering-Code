@@ -1,0 +1,109 @@
+I File Dependencies:
+a. server.js
+1. "./config/passport"
+2. "./models"
+3. "public"
+4. "./routes/html-routes.js"
+5. "./routes/api-routes.js"
+
+b. passport.js
+1. "../models"
+2 '/../config/config.json'
+
+c. login.html
+1."stylesheets/style.css"
+2. "js/login.js"
+
+d. members.html
+1."stylesheets/style.css"
+2. "js/login.js"
+
+e. signup.html
+1."stylesheets/style.css"
+2. "js/login.js"
+
+f. api-routes.js
+1. "../models"
+2. "../config/passport"
+
+g. html-routes.js
+1. "../config/middleware/isAuthenticated"
+
+II File Explanations
+
+a. server.js
+
+The server.js file is the main starting point for the application.  It uses express.js and passport.js
+for user authentication.  The server is built to check for a production environment, if it finds one the port number will be assigned by the production environment, otherwise the port 8080 will be assigned for a local development environment.  Express is configured to use json to send/receive data.
+
+b.  isAuthenticated.js
+
+This file checks to see if a user is logged in, and if they are will allow them to visit a restricted page, otherwise the file will redirect them to the log in page.
+
+c. config.json
+
+This file contains the configuration information for the application to run properly, such as the database information for each environment.
+
+d. passport.js
+
+This file checks for valid information from the user to sign in.  If the user has valid passport.js credentials, the users will be signed in to the app, otherwise the user will be shown an error message specifying which user credentials were incorrect.
+
+e. index.js
+This file organizes the data models and uses sequelize to act as an ORM (Object Relational Map) to make sure the models are correctly configured to work with the database/passport.js
+
+f. user.js
+
+This file created the database model for all users, which is made up of email and password.  The email is required to be a unique string.  The password is required to be a string as well.
+
+g. login.js 
+
+This file handles the login functionality for users. It opens a login form, and then sends that data to the server/api once the login information is entered by the user.
+
+h.  members.js
+
+This file determines which user is logged in and then updates the html for that user by making a GET request to the server/api.
+
+i.  signup.js
+
+This file is similar to the login page, but it handles user sign up/registration instead of login and sends the data to the server/api for processing.
+
+j.  style.css
+
+This file contains the CSS information/styles for our application.
+
+k.  login.html
+
+This file displays the html form that allows a user to log in to the application, and then runs the login.js file to properly handle the login attempt by the user.
+
+l.  members.html
+
+This file is for members, and displays the member information using html and js.
+
+m.  signup.html
+
+This file contains the html form for the user to sign up/register for the application with their email and password.
+
+n.  api-routes.js
+
+The api-routes.js file is the file that handles the routing of http requests to the api.  It includes
+both the endpoints that trigger the api function, along with the api function to handle the desired functionality of the api endpoint.
+
+o.  html-routes.js
+
+The html-routes.js file  is the file that handles the routing of html files for the end user.  Instead of displaying and handling api endpoints, the file handles html that needs to be displayed to the user at various endpoints with custom html that was designed for each endpoint.
+
+p.  package.json
+
+The package.json file is where the application dependencies, start scripts, app name, app version, license, and other information is kept.  Generally a package.json file is created after a user has run npm init on the application repository.
+
+q.  readme.md
+
+The readme.md file is the file that can contain a summary of the application functionality, what technologies/tools are being used in the app, how to run the app, the software license, a video demo of the app, and any other relevant information about the application.
+
+III Possible changes to application
+
+a. JWT - The application could use JWT (Json Web Token) for user authentication instead of passport.js.  JWT allows very granular control of the user authentication options for the applications compared to passport.js, which is a 3rd party tool that has a standard authentication syntax and system.  One example of extra control that JWT offers, is that it allows the creation of customized syntax, schema, and data structures for the user to use in authenticating their application.
+
+b. Mongodb - The application could use Mongodb or a similar nosql database to store, retrieve, and manipulate data instead of sql databases like Mysql and Postgresql.  The application would not necessarily need to use sequalize or another ORM to properly integrate with a nosql database.  The code could be re-written to work with a nosql database, or a nosql ORM could be used to help adapt the application to work with a nosql database like Mongodb as well.  A common way to use mongodb would be to use a hosted, cloud based version of it called Mongodb Atlas.
+
+c.  Database Model/Security - The application could use a database model that included much more information about the user.  For example, we could include a more secure setup where the user was required to put in a phone number that was a valid number that could be used for 2 factor authentication.  Another option would be to specify an allowed ip address for each user to connect from, and to block requests from unverified ip addresses for each user.
